@@ -9,32 +9,33 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/books")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    @GetMapping("books")
+    @GetMapping("/")
     public List<Book> getListOfAllBooks(){
         return bookService.getListOfAllBooks();
     }
 
-    @GetMapping("books/{book_id}")
+    @GetMapping("/{book_id}")
     public Optional<Book> getBookById(@PathVariable("book_id") int bookId){
         return bookService.getBookById(bookId);
     }
 
-    @PostMapping("books")
+    @PostMapping("/")
     public Book saveBook(@RequestBody Book book){
         return bookService.saveBook(book);
     }
 
-    @DeleteMapping("books/{book_id}")
+    @DeleteMapping("/{book_id}")
     public void removeBook(@PathVariable("book_id") int bookId){
         bookService.removeBook(bookId);
     }
 
-    @PutMapping("books/{book_id}")
+    @PutMapping("/{book_id}")
     public Book updateBook(@PathVariable("book_id") int bookId, @RequestBody Book book){
         return bookService.updateBook(bookId, book);
     }

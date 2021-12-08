@@ -31,16 +31,21 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void removeBook(int bookId) {
-        Book book = bookRepository.getById(bookId);
-        bookRepository.delete(book);
+        Optional<Book> book = bookRepository.findById(bookId);
+        if(book.isPresent())
+            bookRepository.delete(book.get());
+
     }
 
     @Override
     public Book updateBook(int bookId, Book book) {
-        Book book1 = bookRepository.getById(bookId);
-        if(!"".equals(book.getBookName())){
-            book1.setBookName(book.getBookName());
+        Optional<Book> book1 = bookRepository.findById(bookId);
+        if (!book1.isPresent()){
+            return book;
         }
-        return bookRepository.save(book1);
+        if(!"".equals(book.getBookName())){
+            book1.get().setBookName(book.getBookName());
+        }
+        return bookRepository.save(book1.get());
     }
 }

@@ -5,36 +5,38 @@ import com.epam.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> listAllUsers(){
         return userService.listAllUsers();
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public Optional<User> getUserById(@PathVariable("userId") int id){
         return userService.getUserById(id);
     }
 
-    @PostMapping("/users")
-    public User saveUser(@RequestBody User user){
+    @PostMapping("/")
+    public User saveUser(@Valid @RequestBody User user){
         return userService.saveUser(user);
     }
 
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/{userId}")
     public void removeUser(@PathVariable("userId") int id){
         userService.removeUser(id);
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/{userId}")
     public User updateUser(@PathVariable("userId") int id, @RequestBody User user){
         return userService.updateUser(id, user);
     }
