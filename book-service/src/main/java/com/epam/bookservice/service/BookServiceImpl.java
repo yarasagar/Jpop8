@@ -32,9 +32,9 @@ public class BookServiceImpl implements BookService{
     @Override
     public void removeBook(int bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
-        if(book.isPresent())
+        if(book.isPresent()) {
             bookRepository.delete(book.get());
-
+        }
     }
 
     @Override

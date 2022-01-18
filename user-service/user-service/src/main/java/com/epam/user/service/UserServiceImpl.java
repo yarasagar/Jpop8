@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,17 +45,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(int id, User user) {
-        User user1 = userRepository.getById(id);
+        Optional<User> user1 = userRepository.findById(id);
+
+        if (!user1.isPresent()){
+            return user;
+        }
 
         if(!"".equals(user.getUserName()) && user.getUserName() != null){
-            user1.setUserName(user.getUserName());
+            user1.get().setUserName(user.getUserName());
         }
         if(!"".equals(user.getMail()) && user.getMail() != null){
-            user1.setMail(user.getMail());
+            user1.get().setMail(user.getMail());
         }
         if(!"".equals(user.getPhoneNumber()) && user.getPhoneNumber() != null){
-            user1.setPhoneNumber(user.getPhoneNumber());
+            user1.get().setPhoneNumber(user.getPhoneNumber());
         }
-        return userRepository.save(user1);
+        return userRepository.save(user1.get());
     }
 }

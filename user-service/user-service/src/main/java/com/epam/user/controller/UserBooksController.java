@@ -5,6 +5,7 @@ import com.epam.user.entity.Books;
 import com.epam.user.entity.Limits;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,12 @@ public class UserBooksController {
     @Autowired
     private CloudConfig config;
 
+    @Value("${minValue}")
+    private int minValue;
+
+    @Value("${maxValue}")
+    private int maxValue;
+
     @GetMapping("/userBooks")
     public List<Books> getUserBooks() {
         //for single book
@@ -43,6 +50,6 @@ public class UserBooksController {
 
     @GetMapping("/limits")
     public Limits getLimits() {
-        return new Limits(config.getMinValue(), config.getMaxValue());
+        return new Limits(minValue, maxValue);
     }
 }
