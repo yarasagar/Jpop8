@@ -34,17 +34,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserById(int id) {
+        LOGGER.info("Inside get user by id in user service");
         return userRepository.findById(id);
     }
 
     @Override
     public void removeUser(int id) {
+        LOGGER.info("Inside remove user in user service");
         Optional<User> user = userRepository.findById(id);
         userRepository.delete(user.get());
     }
 
     @Override
     public User updateUser(int id, User user) {
+        LOGGER.info("Inside update user in user service");
         Optional<User> user1 = userRepository.findById(id);
 
         if (!user1.isPresent()){
