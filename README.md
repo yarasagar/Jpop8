@@ -6,6 +6,7 @@
 4. Service registry
 5. Cloud config
 6. API gateway
+7. Resilence4j
 
 
 **Additional:**
